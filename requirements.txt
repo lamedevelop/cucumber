@@ -1,0 +1,8 @@
+flake8
+fastapi
+starlette
+uvicorn
+jinja2
+alembic
+sqlalchemy
+psycopg2 # requires by alembic
