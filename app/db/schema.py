@@ -1,8 +1,7 @@
 from sqlalchemy import (
     Column, Integer, Float,
-    Boolean, MetaData, Table,
+    Boolean, MetaData, String, Table, SERIAL
 )
-
 
 convention = {
     'all_column_names': lambda constraint, table: '_'.join([
@@ -18,13 +17,54 @@ convention = {
 metadata = MetaData(naming_convention=convention)
 
 
+clients_table = Table(
+    'clients',
+    metadata,
+    Column('client_id', SERIAL, primary_key=True, nullable=False),
+    Column('name', String(255), nullable=False, default=''),
+    Column('surname', String(255), nullable=False, default=''),
+    Column('phone', String(20), nullable=False),
+    Column('email', String(255), nullable=False, default=''),
+
+)
+
+products_table = Table(
+    'products',
+    metadata,
+    Column('product_id', SERIAL, primary_key=True),
+    Column('name', String(255), nullable=False),
+    Column('price', Float, nullable=False),
+    Column('category', Integer, nullable=False),
+    Column('availability', Boolean, nullable=False),
+)
+
 orders_table = Table(
     'orders',
     metadata,
-    Column('order_id', Integer, primary_key=True),
-    Column('weight', Float, nullable=False),
-    Column('region_id', Integer, nullable=False),
-    Column('is_ready', Boolean, nullable=False, default=0),
-    Column('complete_time', Integer, nullable=True, default=0),
-    Column('assign_id', Integer, nullable=True, default=-1),
+    Column('order_id', SERIAL, primary_key=True),
+    Column('client_id', Integer, nullable=False),
+    Column('date', Integer, nullable=False),
+    Column('payment_method', Integer, nullable=False),
+)
+
+order_list_table = Table(
+    'order_list',
+    metadata,
+    Column('order_id', Integer, nullable=False),
+    Column('product_id', Integer, nullable=False),
+    Column('quantity', Integer, nullable=False),
+)
+
+addresses_table = Table(
+    'addresses',
+    metadata,
+    Column('client_id', Integer, nullable=False),
+    Column('address', String(255), nullable=False, default=''),
+)
+
+categories_table = Table(
+    'categories',
+    metadata,
+    Column('category_id', SERIAL, primary_key=True),
+    Column('name', String(255), nullable=False),
 )
