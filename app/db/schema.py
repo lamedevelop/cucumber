@@ -2,7 +2,6 @@ from sqlalchemy import (
     Column, Integer, Float, Date,
     Boolean, MetaData, String, Table,
 )
-from sqlalchemy.orm import relationship
 
 convention = {
     'all_column_names': lambda constraint, table: '_'.join([
