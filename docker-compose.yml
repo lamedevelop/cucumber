@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  orders-db:
+    image: docker.io/bitnami/postgresql:11
+    ports:
+      - 5432:5432
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=1234
+      - POSTGRESQL_DATABASE=common
