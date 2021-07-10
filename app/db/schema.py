@@ -1,6 +1,6 @@
 from sqlalchemy import (
     Column, Integer, Float, Date,
-    Boolean, MetaData, String, Table,
+    Boolean, MetaData, String, Table, SERIAL
 )
 
 convention = {
@@ -20,7 +20,7 @@ metadata = MetaData(naming_convention=convention)
 clients_table = Table(
     'clients',
     metadata,
-    Column('client_id', Integer, primary_key=True, nullable=False, autoincrement=True),
+    Column('client_id', SERIAL, primary_key=True, nullable=False),
     Column('name', String(255), nullable=False, default=''),
     Column('surname', String(255), nullable=False, default=''),
     Column('phone', String(20), nullable=False),
@@ -31,9 +31,9 @@ clients_table = Table(
 products_table = Table(
     'products',
     metadata,
-    Column('product_id', Integer, primary_key=True, autoincrement=True),
+    Column('product_id', SERIAL, primary_key=True),
     Column('name', String(255), nullable=False),
-    Column('price', Integer, nullable=False),
+    Column('price', Float, nullable=False),
     Column('category', Integer, nullable=False),
     Column('availability', Boolean, nullable=False),
 )
@@ -41,7 +41,7 @@ products_table = Table(
 orders_table = Table(
     'orders',
     metadata,
-    Column('order_id', Integer, primary_key=True, autoincrement=True),
+    Column('order_id', SERIAL, primary_key=True),
     Column('client_id', Integer, nullable=False),
     Column('date', Integer, nullable=False),
     Column('payment_method', Integer, nullable=False),
@@ -65,6 +65,6 @@ addresses_table = Table(
 categories_table = Table(
     'categories',
     metadata,
-    Column('category_id', Integer, primary_key=True, autoincrement=True),
+    Column('category_id', SERIAL, primary_key=True),
     Column('name', String(255), nullable=False),
 )
