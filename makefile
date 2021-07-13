@@ -1,9 +1,10 @@
 all:
 	@echo "make lint	- Check code with flake8"
 #	@echo "make test	- Run tests"
+	@echo "make docker	- Run app locally in docker"
 	@echo "make db		- Run only db container"
 	@echo "make local	- Run app locally"
-	@echo "make alembic	- Run alembic migrations"
+	@echo "make dbconn	- Connect to db"
 	@exit 0
 
 lint:
@@ -13,8 +14,11 @@ lint:
 #test:
 #	pytest --disable-warnings
 
+docker:
+	docker-compose up -d --build
+
 db:
-	docker-compose up -d
+	docker-compose run -d --service-ports db
 
 local:
 	uvicorn app.main:app --reload --host 0.0.0.0
