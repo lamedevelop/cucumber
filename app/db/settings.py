@@ -1,5 +1,3 @@
-import aiopg
-
 
 db_config = {
     'user': 'postgres',
@@ -11,24 +9,21 @@ db_config = {
 }
 
 
-class PoolManager:
+class DbSettings:
 
-    @property
-    def conn_string(self):
+    @staticmethod
+    def conn_string() -> str:
         return f"postgresql://" \
                f"{db_config['user']}:{db_config['password']}@" \
                f"{db_config['host']}:{db_config['port']}/{db_config['database']}"
 
-    @property
-    def dsn(self):
+    @staticmethod
+    def dsn() -> str:
         return f"dbname={db_config['database']} " \
                f"user={db_config['user']} " \
                f"password={db_config['password']} " \
                f"host={db_config['host']}"
 
-    async def execute(self, query):
-        async with aiopg.create_pool(self.dsn) as pool:
-            async with pool.acquire() as conn:
-                cur = await conn.cursor()
-                await cur.execute(query)
-                return await cur.fetchall()
+    @staticmethod
+    def params():
+        return db_config

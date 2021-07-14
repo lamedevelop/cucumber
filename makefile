@@ -18,10 +18,14 @@ docker:
 	docker-compose up -d --build
 
 db:
-	docker-compose run -d --service-ports db
+	#docker-compose run -d --service-ports db
+	docker-compose run -d --service-ports adminer
 
 local:
 	uvicorn app.main:app --reload --host 0.0.0.0
 
 dbconn:
 	psql -h 127.0.0.1 -U postgres -p 5432 common
+
+alembic:
+	alembic upgrade head
