@@ -5,4 +5,5 @@ uvicorn
 jinja2
 alembic
 sqlalchemy
+aiopg
 psycopg2 # requires by alembic
