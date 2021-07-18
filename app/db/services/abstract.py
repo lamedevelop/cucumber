@@ -20,3 +20,8 @@ class AbstractService:
     async def get_session(self):
         Session = sessionmaker(bind=self.engine)
         return Session()
+
+    async def prepare_args(self, args):
+        if args is None:
+            args = dict()
+        return args
