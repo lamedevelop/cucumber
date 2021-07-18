@@ -19,7 +19,8 @@ docker:
 	docker-compose up -d --build
 
 db:
-	docker-compose run -d --service-ports db
+	#docker-compose run -d --service-ports db
+	docker-compose run -d --service-ports adminer
 
 local:
 	uvicorn app.main:app --reload --host 0.0.0.0
