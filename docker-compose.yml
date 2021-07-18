@@ -30,6 +30,17 @@ services:
     ports:
       - 5432:5432
 
+  adminer:
+    image: adminer
+    links:
+      - db:db_domain
+    depends_on:
+      - db
+    networks:
+      - cucumber-backend
+    ports:
+      - 8080:8080
+
 volumes:
   cucumber-db-storage:
 
