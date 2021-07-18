@@ -5,6 +5,7 @@ all:
 	@echo "make db		- Run only db container"
 	@echo "make local	- Run app locally"
 	@echo "make dbconn	- Connect to db"
+	@echo "make alembic	- Run alembic migrations"
 	@exit 0
 
 lint:

@@ -1,36 +1,38 @@
-version: '2'
+version: '3.9'
 
 services:
 
   app:
+    container_name: cucumber-app
     build: .
-    ports:
-      - 8000:8000
     restart: always
     links:
       - db:db_domain
     depends_on:
       - db
+    networks:
+      - cucumber-backend
+    ports:
+      - 8000:8000
 
   db:
+    container_name: cucumber-db
     image: docker.io/bitnami/postgresql:11
-    volumes:
-      - dbvolume:/var/lib/postgresql
-    ports:
-      - 5432:5432
+    restart: always
     environment:
       - POSTGRESQL_USERNAME=postgres
       - POSTGRESQL_PASSWORD=1234
       - POSTGRESQL_DATABASE=common
-
-  adminer:
-    image: adminer
+    # volumes:
+    #   - cucumber-db-storage:/var/lib/postgresql/data
+    networks:
+      - cucumber-backend
     ports:
-      - 8080:8080
-    links:
-      - db:db_domain
-    depends_on:
-      - db
+      - 5432:5432
 
 volumes:
-  dbvolume: {}
+  cucumber-db-storage:
+
+networks:
+  cucumber-backend:
+    driver: bridge

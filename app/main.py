@@ -1,10 +1,6 @@
-import aiopg
-
-from app.api.routes.router import router
-
 from fastapi import FastAPI
 
-from app.db.settings import DbSettings
+from app.api.routes.router import router
 
 
 def get_application() -> FastAPI:
