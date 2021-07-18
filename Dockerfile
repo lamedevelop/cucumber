@@ -2,9 +2,10 @@ FROM python:3 as builder
 
 COPY requirements.txt /mnt/
 
-RUN python -m venv /app
-RUN /app/bin/pip install -U pip
-RUN /app/bin/pip install -Ur /mnt/requirements.txt
+RUN \
+    python -m venv /app \
+    && /app/bin/pip install -U pip \
+    && /app/bin/pip install -Ur /mnt/requirements.txt
 
 
 FROM python:3 as app
