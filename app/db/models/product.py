@@ -12,12 +12,12 @@ class Product(BaseModel):
 
     @validator('product_id')
     def id_validation(cls, v: int):
-        if not(v >= 0 and isinstance(v, int)):
+        if not (v >= 0 and isinstance(v, int)):
             raise ValueError('Id must be positive integer')
         return v
 
     @validator('price')
     def weight_validation(cls, v: float):
-        if not (v >= 0):
+        if v < 0:
             raise ValueError('Price must be positive float')
         return v
