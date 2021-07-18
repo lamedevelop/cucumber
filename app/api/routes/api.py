@@ -19,7 +19,4 @@ async def get_products(request: Request):
     service = ProductService()
     res = await service.get_products()
 
-    return JSONResponse(
-        {"result": res},
-        status_code=status.HTTP_200_OK,
-    )
+    return {"result": res}
