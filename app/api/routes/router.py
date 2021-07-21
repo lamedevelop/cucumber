@@ -22,6 +22,17 @@ async def get_main(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
+@router.options(
+    "/phone",
+    name='test:post-phone',
+    status_code=status.HTTP_200_OK
+)
+async def post_phone(request: Request):
+    request = await request.json()
+    print(request)
+    return request
+
+
 @router.get(
     "/test",
     name='test:get-json',
