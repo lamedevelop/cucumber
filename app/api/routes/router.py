@@ -22,7 +22,7 @@ async def get_main(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
-@router.options(
+@router.post(
     "/phone",
     name='test:post-phone',
     status_code=status.HTTP_200_OK
