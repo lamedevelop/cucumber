@@ -1,20 +1,6 @@
 from fastapi.testclient import TestClient
 
 
-# json_products = \
-#         {
-#             "data": [
-#                 {
-#                     "product_id": 1,
-#                     "name": kolbasa,
-#                     "price": 12.1,
-#                     "category": 1,
-#                     "availability": True
-#                 },
-#             ]
-#         }
-
-
 def test_successful_get_products(client: TestClient):
     # response = client.post('/products', json=json_products)
     response = client.get('/api/v1/products')
