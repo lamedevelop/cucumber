@@ -1,6 +1,6 @@
 all:
 	@echo "make lint	- Check code with flake8"
-#	@echo "make test	- Run tests"
+	@echo "make test	- Run tests"
 	@echo "make docker	- Run app locally in docker"
 	@echo "make db		- Run only db container"
 	@echo "make local	- Run app locally"
@@ -12,8 +12,8 @@ lint:
 	flake8 app --count --exit-zero --exclude=app/db/migrations/ --max-complexity=10 --max-line-length=127 --statistics
 	#flake8 tests --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-#test:
-#	pytest --disable-warnings
+test:
+	pytest --disable-warnings
 
 docker:
 	docker-compose up -d --build
