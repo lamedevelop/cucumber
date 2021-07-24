@@ -12,6 +12,6 @@ service = ClientService()
     name='api-v1:get-client',
     status_code=status.HTTP_200_OK
 )
-async def get_products(client_id: int, request: Request):
+async def get_client(client_id: int, request: Request):
     client = await service.get_client(client_id)
     return {"data": client}
