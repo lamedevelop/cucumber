@@ -21,10 +21,7 @@ async def set_couriers(request: Request):
 
     client_id = await service.register_client(client)
 
-    return JSONResponse(
-        {'client_id': client_id},
-        status_code=status.HTTP_201_CREATED,
-    ) if client_id \
+    return {'client_id': client_id} if client_id \
         else JSONResponse(
             {'error': 'Client was not created'},
             status_code=status.HTTP_400_BAD_REQUEST,
