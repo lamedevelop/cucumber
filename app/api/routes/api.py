@@ -15,8 +15,8 @@ service = ProductService()
     status_code=status.HTTP_200_OK
 )
 async def get_categories(request: Request):
-    res = await service.get_categories()
-    return {"result": res}
+    categories = await service.get_categories()
+    return {"data": categories}
 
 
 @router.get(
@@ -25,8 +25,8 @@ async def get_categories(request: Request):
     status_code=status.HTTP_200_OK
 )
 async def get_products(request: Request):
-    res = await service.get_products()
-    return {"result": res}
+    products = await service.get_products()
+    return {"data": products}
 
 
 @router.get(
@@ -35,5 +35,5 @@ async def get_products(request: Request):
     status_code=status.HTTP_200_OK
 )
 async def get_products(product_id: int, request: Request):
-    res = await service.get_product(product_id)
-    return {"result": res}
+    product = await service.get_product(product_id)
+    return {"data": product}
