@@ -3,14 +3,15 @@ from starlette import status
 from starlette.responses import JSONResponse
 from starlette.templating import Jinja2Templates
 
-from app.api.routes import api
+from app.api.routes import product, client
 
 
 router = APIRouter()
 templates = Jinja2Templates(directory="static")
 
 
-router.include_router(api.router, tags=["api"], prefix="/api/v1")
+router.include_router(product.router, tags=["api"], prefix="/api/v1")
+router.include_router(client.router, tags=["api"], prefix="/api/v1")
 
 
 @router.get(
