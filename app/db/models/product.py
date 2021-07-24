@@ -17,7 +17,7 @@ class Product(BaseModel):
         return v
 
     @validator('price')
-    def weight_validation(cls, v: float):
+    def price_validation(cls, v: float):
         if v < 0:
             raise ValueError('Price must be positive float')
         return v
