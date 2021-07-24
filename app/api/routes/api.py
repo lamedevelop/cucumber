@@ -24,7 +24,7 @@ async def get_products(request: Request):
 
 @router.get(
     "/product/{product_id}",
-    name='api-v1:get-products',
+    name='api-v1:get-product',
     status_code=status.HTTP_200_OK
 )
 async def get_products(product_id: int, request: Request):
