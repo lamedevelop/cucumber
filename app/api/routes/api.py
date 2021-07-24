@@ -20,3 +20,15 @@ async def get_products(request: Request):
     res = await service.get_products()
 
     return {"result": res}
+
+
+@router.get(
+    "/product/{product_id}",
+    name='api-v1:get-products',
+    status_code=status.HTTP_200_OK
+)
+async def get_products(product_id: int, request: Request):
+    service = ProductService()
+    res = await service.get_product(product_id)
+
+    return {"result": res}

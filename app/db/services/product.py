@@ -14,3 +14,11 @@ class ProductService(AbstractService):
             .all()
 
         return [Product(**row) for row in rows]
+
+    async def get_product(self, product_id: int):
+        row = await self.select(
+            products_table.select().where(
+                products_table.c.product_id == product_id,
+            )
+        )
+        return Product(**row) if row else False
