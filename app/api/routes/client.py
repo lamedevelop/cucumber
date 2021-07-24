@@ -3,6 +3,7 @@ from starlette import status
 
 from app.db.services.client import ClientService
 
+
 router = APIRouter()
 service = ClientService()
 
