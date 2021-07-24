@@ -32,6 +32,33 @@ def test_successful_get_products(client: TestClient):
     }
 
 
+def test_successful_get_product(client: TestClient):
+    response = client.get('/api/v1/products/1')
+    assert response.status_code == 200
+    assert response.json() == {
+        "result":
+            {
+                "product_id": 1,
+                "name": "kolbasa",
+                "price": 150.0,
+                "category": 1,
+                "availability": True
+            }
+    }
+    response = client.get('/api/v1/products/2')
+    assert response.status_code == 200
+    assert response.json() == {
+        "result":
+            {
+                "product_id": 2,
+                "name": "barashek",
+                "price": 5000.0,
+                "category": 1,
+                "availability": True
+            }
+    }
+
+
 def test_successful_get_categories(client: TestClient):
     response = client.get('/api/v1/categories')
     assert response.status_code == 200
