@@ -1,6 +1,6 @@
-from app.db.services.abstract import AbstractService
-from app.db.models.product import Product, Category
+from app.db.models.client import Client
 from app.db.schema import clients_table
+from app.db.services.abstract import AbstractService
 
 
 class ClientService(AbstractService):
@@ -11,4 +11,4 @@ class ClientService(AbstractService):
                 clients_table.c.client_id == client_id,
             )
         )
-        return Product(**row) if row else False
+        return Client(**row) if row else False
