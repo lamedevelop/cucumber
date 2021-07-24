@@ -10,7 +10,7 @@ class ClientService(AbstractService):
 
     async def register_client(self, client: dict):
         client = ClientInRequest(**client)
-        client_id = await self.select(
+        client_id = await self.execute(
             clients_table.insert().values({
                 'name': client.name,
                 'surname': client.surname,
@@ -20,8 +20,21 @@ class ClientService(AbstractService):
         )
         return client_id[0] if client_id else False
 
+    async def update_client(self, client_id: int, update_fields: dict):
+        if not await self.get_client(client_id):
+            return False
+
+        client_row = await self.execute(
+            clients_table.update()
+            .where(clients_table.c.client_id == client_id)
+            .values(**update_fields)
+            .returning("*")
+        )
+
+        return Client(**client_row) if client_row else False
+
     async def get_client(self, client_id: int):
-        row = await self.select(
+        row = await self.execute(
             clients_table.select().where(
                 clients_table.c.client_id == client_id,
             )
