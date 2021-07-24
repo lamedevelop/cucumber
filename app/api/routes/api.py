@@ -6,6 +6,7 @@ from app.db.services.product import ProductService
 
 
 router = APIRouter()
+service = ProductService()
 
 
 @router.get(
@@ -14,11 +15,17 @@ router = APIRouter()
     status_code=status.HTTP_200_OK
 )
 async def get_products(request: Request):
-    # request = await request.json()
-
-    service = ProductService()
     res = await service.get_products()
+    return {"result": res}
 
+
+@router.get(
+    "/categories",
+    name='api-v1:get-categories',
+    status_code=status.HTTP_200_OK
+)
+async def get_categories(request: Request):
+    res = await service.get_categories()
     return {"result": res}
 
 

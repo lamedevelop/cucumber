@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, Table
 from sqlalchemy.orm import sessionmaker
 
 from app.db.settings import DbSettings
@@ -25,3 +25,13 @@ class AbstractService:
         if args is None:
             args = dict()
         return args
+
+    async def select_multi(self, table: Table, args):
+        args = await self.prepare_args(args)
+        session = await self.get_session()
+
+        rows = session.query(table) \
+            .filter_by(**args) \
+            .all()
+
+        return rows
