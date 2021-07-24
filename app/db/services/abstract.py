@@ -11,10 +11,6 @@ class AbstractService:
 
     async def execute(self, query):
         with self.engine.connect() as conn:
-            conn.execute(query)
-
-    async def select(self, query):
-        with self.engine.connect() as conn:
             return conn.execute(query).fetchone()
 
     async def get_session(self):
