@@ -10,8 +10,26 @@ router = APIRouter()
 service = ClientService()
 
 
+@router.post(
+    "/client",
+    name='api-v1:post-client',
+    status_code=status.HTTP_201_CREATED
+)
+async def set_couriers(request: Request):
+    client = await request.json()
+    client = client['data']
+
+    client_id = await service.register_client(client)
+
+    return {'client_id': client_id} if client_id \
+        else JSONResponse(
+            {'error': 'Client was not created'},
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )
+
+
 @router.get(
-    "/clients/{client_id}",
+    "/client/{client_id}",
     name='api-v1:get-client',
     status_code=status.HTTP_200_OK
 )
@@ -21,7 +39,7 @@ async def get_client(client_id: int, request: Request):
 
 
 @router.get(
-    "/clients/{client_id}/image",
+    "/client/{client_id}/image",
     name='api-v1:get-client',
     status_code=status.HTTP_200_OK
 )
