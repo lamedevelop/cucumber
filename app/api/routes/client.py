@@ -15,7 +15,7 @@ service = ClientService()
     name='api-v1:post-client',
     status_code=status.HTTP_201_CREATED
 )
-async def set_couriers(request: Request):
+async def set_client(request: Request):
     client = await request.json()
     client = client['data']
 
@@ -24,6 +24,24 @@ async def set_couriers(request: Request):
     return {'client_id': client_id} if client_id \
         else JSONResponse(
             {'error': 'Client was not created'},
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+@router.patch(
+    "/client/{client_id}",
+    name='api-v1:patch-client',
+    status_code=status.HTTP_200_OK
+)
+async def update_client(client_id: int, request: Request):
+    update_fields = await request.json()
+    update_fields = update_fields['data']
+
+    client = await service.update_client(client_id, update_fields)
+
+    return {'result': 'Client was updated'} if client \
+        else JSONResponse(
+            {'error': 'Client was not updated'},
             status_code=status.HTTP_400_BAD_REQUEST,
         )
 
