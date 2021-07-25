@@ -12,7 +12,7 @@ from app.internal.time_manager import TimeManager
 class ValidationService(AbstractService):
 
     pin_len = 4
-    pin_ttl = 60000  # seconds
+    pin_ttl = 600  # seconds
     email_validation = 1
     sms_validation = 2
 
@@ -30,7 +30,7 @@ class ValidationService(AbstractService):
 
     async def check_validation(self, client: Client, client_pin: int):
         validation = await self.get_validation_by_client(client.client_id)
-        return True if validation and validation.pin == client_pin else False
+        return True if validation and str(validation.pin) == str(client_pin) else False
 
     def generate_pin(self):
         code = ''

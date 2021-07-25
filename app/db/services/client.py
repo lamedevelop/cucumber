@@ -1,3 +1,4 @@
+from app.db.services.validation import ValidationService
 from app.internal.file_manager import FileManager
 from app.db.services.abstract import AbstractService
 from app.db.schema import clients_table
@@ -10,12 +11,22 @@ class ClientService(AbstractService):
 
     async def register_client(self, client: dict):
         client = ClientInRequest(**client)
+        client_id = await self.add_client(client)
+        if client_id:
+            await ValidationService().send_validation(
+                Client(
+                    client_id=client_id,
+                    **client.dict()
+                )
+            )
+            return client_id
+        else:
+            return False
+
+    async def add_client(self, client: ClientInRequest):
         client_id = await self.execute(
             clients_table.insert().values({
-                'name': client.name,
-                'surname': client.surname,
-                'phone': client.phone,
-                'email': client.email,
+                **client.dict()
             }).returning(clients_table.c.client_id)
         )
         return client_id[0] if client_id else False
