@@ -1,4 +1,5 @@
 from app.api.routes.router import router
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI
@@ -7,6 +8,7 @@ from fastapi import FastAPI
 def get_application() -> FastAPI:
     application = FastAPI()
     application.include_router(router)
+    application.mount("/static", StaticFiles(directory="static"), name="static")
 
     origins = [
         "*",

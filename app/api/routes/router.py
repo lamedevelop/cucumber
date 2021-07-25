@@ -29,6 +29,15 @@ async def get_main(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 
+@router.get(
+    "/contacts",
+    name='static:contacts-page',
+    status_code=status.HTTP_200_OK
+)
+async def get_main(request: Request):
+    return templates.TemplateResponse("contacts.html", {"request": request})
+
+
 @router.post(
     "/phone",
     name='test:post-phone',
