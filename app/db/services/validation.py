@@ -5,7 +5,7 @@ from sqlalchemy import and_
 from app.db.models.client import ClientValidation, Client, ClientValidationFull
 from app.db.schema import validation_table
 from app.db.services.abstract import AbstractService
-from app.internal.senders.email import EmailSender
+from app.internal.email_sender import EmailSender
 from app.internal.time_manager import TimeManager
 
 
