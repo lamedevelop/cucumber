@@ -33,10 +33,7 @@ class ValidationService(AbstractService):
         return validation and str(validation.pin) == str(client_pin)
 
     def generate_pin(self):
-        code = ''
-        for i in range(self.pin_len):
-            code += str(random.randint(0, 9))
-        return code
+        return random.randint(10 ** (self.pin_len - 1), 10 ** self.pin_len - 1)
 
     async def store_validation(self, validation: ClientValidation):
         validation_id = await self.execute(
