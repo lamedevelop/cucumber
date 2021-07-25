@@ -1,7 +1,9 @@
+import pytest
 from fastapi.testclient import TestClient
 
 
-def test_successful_get_products(client: TestClient):
+@pytest.mark.skip
+def test_successful_set_and_get_client(client: TestClient):
     ok_json_client = {
         "data": {
             "name": "Vitya2222",
