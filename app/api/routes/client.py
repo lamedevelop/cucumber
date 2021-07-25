@@ -40,8 +40,11 @@ async def validate_client(client_id: int, request: Request):
 
     validation_res = await ValidationService().check_validation(client, pin)
 
-    return {'result': "Validation success"} if validation_res \
-        else JSONResponse(
+    if validation_res:
+        await service.update_client(client_id, {'validation': validation_res})
+        return {'result': "Validation success"}
+    else:
+        return JSONResponse(
             {'error': 'Wrong validation pin'},
             status_code=status.HTTP_400_BAD_REQUEST,
         )
