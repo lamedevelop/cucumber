@@ -22,9 +22,9 @@ clients_table = Table(
     metadata,
     Column('client_id', Integer, primary_key=True),
     Column('name', String(255), nullable=False, default=''),
-    Column('surname', String(255), nullable=False, default=''),
     Column('phone', String(20), nullable=False),
     Column('email', String(255), nullable=False, default=''),
+    Column('validation', Boolean, default=False),
 )
 
 products_table = Table(

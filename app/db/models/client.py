@@ -5,9 +5,8 @@ from pydantic import BaseModel, validator
 
 class ClientInRequest(BaseModel):
     name: str
-    surname: Optional[str] = ''
     phone: str
-    email: Optional[str] = ''
+    email: str
 
     @validator('phone')
     def phone_validation(cls, v: str):
@@ -26,6 +25,7 @@ class ClientInRequest(BaseModel):
 
 class Client(ClientInRequest):
     client_id: int
+    validation: Optional[bool]
 
     @validator('client_id')
     def id_validation(cls, v: int):
