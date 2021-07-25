@@ -4,7 +4,7 @@ from fastapi import APIRouter, Request
 from fastapi.responses import FileResponse
 
 from app.db.services.client import ClientService
-
+from app.db.services.validation import ValidationService
 
 router = APIRouter()
 service = ClientService()
@@ -24,6 +24,25 @@ async def set_client(request: Request):
     return {'client_id': client_id} if client_id \
         else JSONResponse(
             {'error': 'Client was not created'},
+            status_code=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+@router.post(
+    "/client/{client_id}/validation",
+    name='api-v1:validate-client',
+    status_code=status.HTTP_200_OK
+)
+async def validate_client(client_id: int, request: Request):
+    validation = await request.json()
+    pin = validation['data']['pin']
+    client = await service.get_client(client_id)
+
+    validation_res = await ValidationService().check_validation(client, pin)
+
+    return {'result': "Validation success"} if validation_res \
+        else JSONResponse(
+            {'error': 'Wrong validation pin'},
             status_code=status.HTTP_400_BAD_REQUEST,
         )
 

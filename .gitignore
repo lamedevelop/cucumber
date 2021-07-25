@@ -4,3 +4,4 @@ venv/
 .pytest*
  __pycache__/
 *.pyc
+configs/og.py

@@ -25,7 +25,6 @@ clients_table = Table(
     Column('surname', String(255), nullable=False, default=''),
     Column('phone', String(20), nullable=False),
     Column('email', String(255), nullable=False, default=''),
-
 )
 
 products_table = Table(
@@ -67,4 +66,14 @@ categories_table = Table(
     metadata,
     Column('category_id', Integer, primary_key=True),
     Column('name', String(255), nullable=False),
+)
+
+validation_table = Table(
+    'validation',
+    metadata,
+    Column('validation_id', Integer, primary_key=True),
+    Column('client_id', Integer, nullable=False),
+    Column('pin', Integer, nullable=False),
+    Column('method', Integer, nullable=False),
+    Column('date', Integer, nullable=False),
 )
