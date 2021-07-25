@@ -30,7 +30,7 @@ class ValidationService(AbstractService):
 
     async def check_validation(self, client: Client, client_pin: int):
         validation = await self.get_validation_by_client(client.client_id)
-        return True if validation and str(validation.pin) == str(client_pin) else False
+        return validation and str(validation.pin) == str(client_pin)
 
     def generate_pin(self):
         code = ''
