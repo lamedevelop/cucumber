@@ -32,3 +32,17 @@ class Client(ClientInRequest):
         if not (v >= 0 and isinstance(v, int)):
             raise ValueError('Id must be positive integer')
         return v
+
+
+class ClientValidation(BaseModel):
+    validation_id: int
+    client_id: int
+    pin: int
+    method: int
+    date: int
+
+    @validator('validation_id', 'client_id')
+    def id_validation(cls, v: int):
+        if not (v >= 0 and isinstance(v, int)):
+            raise ValueError('Id must be positive integer')
+        return v
